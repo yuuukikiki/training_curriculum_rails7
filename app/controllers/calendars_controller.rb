@@ -4,11 +4,14 @@ class CalendarsController < ApplicationController
   def index
     getWeek
     @plan = Plan.new
+    @day = {
+      plans: []
+    }
   end
 
   # 予定の保存
   def create
-    plan.create(plan_params)
+    Plan.create(plan_params)
     redirect_to action: :index
   end
 
@@ -27,7 +30,7 @@ class CalendarsController < ApplicationController
 
     @week_days = []
 
-    plans = plan.where(date: @todays_date..@todays_date + 6)
+    plans = Plan.where(date: @todays_date..@todays_date + 6)
 
     7.times do |x|
       today_plans = []
